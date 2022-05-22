@@ -1,0 +1,27 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+}
+
+form{
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    width: 90%;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+    margin: 1rem;
+    border-radius: 9px;
+}
