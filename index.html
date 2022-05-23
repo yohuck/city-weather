@@ -5,21 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/4635c3c054.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Koulen&family=Roboto+Mono:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./resources/style.css">
     <title>City Weather</title>
 </head>
 <body>
     <header>
-        <h1>City Weather</h1>
-        <p>5 days at a glance</p>
-    </header>
-    <main>
         <form class="search">
             <input list = 'historyOption' autofocus type="search" name="city-search" id="city-search" placeholder="Enter a city">
-            <datalist id="historyOption">
-            </datalist>
-            <input type="submit" value="Search" id="submit">
+            <input type="submit" value="🔍" id="submit">
         </form>
+        <ul id="historyOption">
+        </ul>
+    </header>
+    <main>
         <div id="history"></div>
         <div id="current"></div>
         <div class="five-day">

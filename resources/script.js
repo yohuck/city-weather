@@ -22,8 +22,8 @@ let addHistory = city => {
     if (historyHistory.includes(city)){
         return 'Already there'
     } else {
-        let searchHistory = document.createElement('option');
-        searchHistory.value = city;
+        let searchHistory = document.createElement('li');
+        searchHistory.textContent = city;
         history.appendChild(searchHistory);
     }
 }
@@ -50,8 +50,14 @@ let fetchCity = city => {
 
 let displayWeather = object => {
     addHistory(object.city);
+    addCard(object)
 
 
+
+}
+
+let addCard = (object) => {
+    
     let card = document.createElement('div')
     card.setAttribute('class', 'card')
     let title = document.createElement('h3')
@@ -65,7 +71,4 @@ let displayWeather = object => {
     info.textContent = object.summary + ' ' + object.temp + ' ' + object.wind + ' ' + object.humidity
     card.append(info)
     current.append(card)
-
 }
-
-
