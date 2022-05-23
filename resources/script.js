@@ -42,6 +42,7 @@ submit.addEventListener('click', function(event){
     event.preventDefault()
     let cityToQuery = cityEntry.value
     fetchCity(cityToQuery)
+    fetchCityFiveDay(cityToQuery)
 })
 
 let addHistory = city => {
@@ -64,14 +65,52 @@ let fetchCity = city => {
     fetch(apiURL)
     .then(response => response.json())
     .then(data => {
+        // console.log(data)
         let returnObject =  {
             city: city,
-            summary: data.weather[0].main,
+            summary: data.weather[0].description,
+            icon: data.weather[0].icon,
             temp: data.main.temp,
             wind: data.wind.speed,
             humidity: data.main.humidity
         } 
         displayWeather(returnObject)
+    })
+}
+let fetchCityFiveDay = city => {
+    let key = 'f8541dfaff9d2bd38cb28900beab850f'
+    let apiURL = "https://api.openweathermap.org/data/2.5/forecast?q="
+    let apiQueryURL = city => {
+        apiURL = apiURL + city + '&units=imperial&appid=' + key;
+    }
+    apiQueryURL(city);
+    fetch(apiURL)
+    .then(response => response.json())
+    .then(data => {
+        let fiveDayArr = data.list;
+        console.log(fiveDayArr);
+        for (let i = 4; i < 40; i+=8){
+            console.log(fiveDayArr[i])
+            let returnObject =  {
+                city: city,
+                date: fiveDayArr[i].dt_txt,
+                summary: fiveDayArr[i].weather[0].description,
+                icon: fiveDayArr[i].weather[0].icon,
+                temp: fiveDayArr[i].main.temp + ' degrees',
+                wind: fiveDayArr[i].wind.speed,
+                humidity: fiveDayArr[i].main.humidity
+            }; displayWeather(returnObject);
+            console.log(returnObject)
+        }
+        // let returnObject =  {
+        //     city: city,
+        //     summary: data.weather[0].description,
+        //     icon: data.weather[0].icon,
+        //     temp: data.main.temp,
+        //     wind: data.wind.speed,
+        //     humidity: data.main.humidity
+        // } 
+        // displayWeather(returnObject)
     })
 }
 
@@ -90,12 +129,14 @@ let addCard = (object) => {
     let title = document.createElement('h3')
     title.textContent = object.city;
     card.append(title);
-    let icon = document.createElement('i')
-    icon.classList.add('fa-cloud')
-    icon.classList.add('fa-solid')
+    let icon = document.createElement('img')
+    let source = 'http://openweathermap.org/img/wn/' + object.icon + '@2x.png'
+    icon.setAttribute('src', source)
     card.append(icon)
     let info = document.createElement('p');
-    info.textContent = object.summary + ' ' + object.temp + ' ' + object.wind + ' ' + object.humidity
+    info.textContent = object.summary + ' ' + object.temp + ' ' + object.wind + ' ' + object.humidity + ' ' + object.date; 
     card.append(info)
     current.append(card)
 }
+
+

@@ -113,7 +113,7 @@ li{
     width: 95%;
     height: 20vh;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: space-around;
     align-items: center;
     border-radius: 9px;
@@ -126,3 +126,6 @@ i{
 /* #search{
     width: 100%;
 } */
+
+img{
+}
