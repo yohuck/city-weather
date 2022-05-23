@@ -4,11 +4,38 @@ let historyList = document.getElementById('history');
 let current = document.getElementById('current');
 let history = document.getElementById('historyOption')
 let historyHistory = [];
+let search = document.getElementById('search');
+let back = document.getElementById('backIcon');
+let toggleEl = false;
 
 let icons = {
     cloudy: "fa-solid fa-cloud",
     rainy: "fa-solid fa-cloud-rain"
 }
+
+cityEntry.addEventListener('click', function(){
+    if (toggleEl == false) {
+        search.style.width = '100%'
+        search.style.maxWidth = '10000px'
+        search.style.borderRadius = '0';
+        search.style.transform = 'translateY(0)';
+        history.style.transform = 'translateY(0)';
+        back.style.display = 'inline';
+        toggleEl = true;
+    } else console.log('okay')
+    
+})
+
+back.addEventListener('click', function(event){
+    if (toggleEl == true)
+    {
+    search.style.width = '95%';
+    search.style.borderRadius = '10px';
+    search.style.transform = 'translateY(1rem)'
+    history.style.transform = "translateY(-120%)"
+    back.style.display = 'none';
+    toggleEl = false;} else console.log('hello')
+})
 
 
 submit.addEventListener('click', function(event){
