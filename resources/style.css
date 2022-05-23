@@ -1,27 +1,77 @@
+:root {
+    --altWhite: #EDF2F4;
+    --primary: #57737a77;
+    --dark: #040F0F;
+    --accent: #0C7489;
+    --light: #119da456;
+    --trans: rgba(255, 255, 255,0);
+}
+
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+body {
+    background-color: var(--primary);
+    font-family: 'Roboto Mono', monospace;
+}
+
 header {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
     text-align: center;
+    /* background-color: var(--primary); */
 }
 
 form{
-    margin: 1rem;
+    max-width: 800px;
+    width: 95%;
+    font-family: 'Roboto Mono', monospace;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: .5rem;
+    background-color: #EDF2F4;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+input {
+    background-color: var(--trans);
+    border: none;
+}
+
+ul{
+    padding: 1rem;
+    background-color: var(--light);
+    margin: 1rem auto;
+    /* border: 1px solid black; */
+    max-width: 800px;
+    width: 95%;
+    list-style: none;
+    display: flex;
+}
+
+li{
+    margin-right: .4rem;
+}
+
+#city-search{
+    width: 100%;
 }
 
 .card {
-    width: 90%;
+    background-color: var(--dark);
+    color: var(--altWhite);
+    margin: 1rem auto;
+    max-width: 800px;
+    width: 95%;
     height: 20vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid black;
-    margin: 1rem;
     border-radius: 9px;
 }
