@@ -19,7 +19,7 @@ cityEntry.addEventListener('click', function(){
         search.style.maxWidth = '10000px'
         search.style.borderRadius = '0';
         search.style.transform = 'translateY(0)';
-        history.style.transform = 'translateY(0)';
+        history.style.transform = 'scaleY(100%) translateY(0rem)';
         back.style.display = 'inline';
         toggleEl = true;
     } else console.log('okay')
@@ -32,7 +32,7 @@ back.addEventListener('click', function(event){
     search.style.width = '95%';
     search.style.borderRadius = '10px';
     search.style.transform = 'translateY(1rem)'
-    history.style.transform = "translateY(-120%)"
+    history.style.transform = "scaleY(0%) translateY(21px)"
     back.style.display = 'none';
     toggleEl = false;} else console.log('hello')
 })

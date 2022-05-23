@@ -1,5 +1,6 @@
 :root {
     --altWhite: #EDF2F4;
+    --altWhiteDark: #bcd9d9ea;
     --primary: #57737a77;
     --dark: #040F0F;
     --accent: #0C7489;
@@ -39,15 +40,18 @@ form{
 input {
     background-color: var(--trans);
     border: none;
+    font-weight: bold;
+    font-size: 1rem;
 }
 
 ul{
+    transform-origin: top;
     transition: .3s ease-in-out;
     position: absolute;
     padding-top: 2rem;
     z-index: 1;
-    transform: translateY(-110%);
-    background-color: var(--light);
+    transform:  scale(0%) translate(-100%);
+    background-color: var(--altWhite);
     /* border: 1px solid black; */
     /* max-width: 800px; */
     width: 100%;
@@ -56,6 +60,10 @@ ul{
     flex-direction: column;
     margin: 0 auto;
     
+}
+
+ul h3 {
+    margin-left: 1rem;
 }
 
 li:hover {
@@ -72,22 +80,28 @@ li:hover {
 
 li{
     width: 90%;
-    margin-left: 1rem;
+    margin-left: 3.55rem;
     margin-top: 1rem;
-    color: white;
+    color: var(--light);
+    font-weight: bold;
 }
 
 #city-search{
     /* transform: translateY(1rem); */
-    z-index: 7;
+    z-index: 70;
     width: 100%;
     position: relative;
+    margin: 0 1rem;
+    padding: 0.5rem;
 }
 
 #search{
+    height: 3rem;
     width: 95%;
-    transition: .6s ease-in-out;
+    /* border: 2px solid black; */
+    transition: .3s ease-in-out;
     transform: translateY(1rem);
+    box-shadow: 3px 3px 2px 1px var(--dark);
 }
 
 .card {
