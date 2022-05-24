@@ -2,8 +2,8 @@
     --altWhite: #EDF2F4;
     --altWhiteDark: #bcd9d9ea;
     --primary: #57737a77;
-    --dark: #040F0F;
-    --accent: #0C7489;
+    --dark: #0b0f04;
+    --accent: #a8d3d0a5;
     --light: #1c1c50ef;
     --trans: rgba(255, 255, 255,0);
 }
@@ -108,16 +108,25 @@ li{
     z-index: 5;
     background-color: var(--dark);
     color: var(--altWhite);
-    margin: 2rem auto -1rem auto;
+    margin: 2rem auto 1rem auto;
     max-width: 800px;
     width: 95%;
-    height: 20vh;
+    /* height: 20vh; */
     display: flex;
+    flex-direction: column;
     /* flex-direction: column; */
     justify-content: space-around;
     align-items: center;
     border-radius: 9px;
+    padding-bottom: 1rem;
 }
+
+.card h3{
+    margin-top: 1rem;
+}
+
+
+
 
 i{
     cursor: pointer;
@@ -128,4 +137,30 @@ i{
 } */
 
 img{
+}
+
+/* .fiveDay{
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ */
+
+
+.oneDay{
+    width: 95%;
+    color: var(--altWhite);
+    background-color: var(--accent);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: .3rem auto;
+    max-width: 800px;
+    border-radius: 10px;
+}
+
+p + .oneDay{
+    /* background-color: green; */
+    margin-top: 1rem;
 }
