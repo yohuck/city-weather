@@ -125,7 +125,7 @@ let fiveDay = (array, city, uvPass) => {
         wind.textContent = object.wind + ' MPH';
         oneDay.append(wind)
         let humid = document.createElement('p');
-        humid.textContent = object.humidity + '%';
+        humid.textContent = 'Humidity: ' + object.humidity + '%';
         oneDay.append(humid)
         let icon = document.createElement('img');
         let source = 'http://openweathermap.org/img/wn/' + object.icon + '.png'
@@ -135,7 +135,7 @@ let fiveDay = (array, city, uvPass) => {
     
     }
 for (let i = 1; i < 6; i++){
-    const locals = moment.unix(array[i].dt).format('dd MM/DD ');
+    const locals = moment.unix(array[i].dt).format('dddd MM/DD ');
     console.log(locals)
     let returnObject =  {
         city: city,

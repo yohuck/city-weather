@@ -3,7 +3,7 @@
     --altWhiteDark: #bcd9d9ea;
     --primary: #57737a77;
     --dark: #0b0f04;
-    --accent: #a8d3d0a5;
+    --accent: #3c4854df;
     --light: #1c1c50ef;
     --trans: rgba(255, 255, 255,0);
 }
@@ -157,8 +157,6 @@ i{
     width: 100%;
 } */
 
-img{
-}
 
 .info{
     width: 95%;
@@ -171,17 +169,18 @@ img{
 
 
 .oneDay{
-    padding: 1rem;
+    /* padding: 1rem; */
     width: 95%;
     color: var(--altWhite);
     background-color: var(--accent);
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     margin: .3rem auto;
     max-width: 800px;
     border-radius: 10px;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
 }
 
 p + .oneDay{
