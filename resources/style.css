@@ -183,6 +183,11 @@ i{
     font-size: 0.6rem;
 }
 
+.oneDay p{
+    padding: 0.1rem;
+    margin: 0.25rem;
+}
+
 p + .oneDay{
     /* background-color: green; */
     margin-top: 1rem;
