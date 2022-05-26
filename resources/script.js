@@ -42,6 +42,14 @@ submit.addEventListener('click', function(event){
     event.preventDefault()
     let cityToQuery = cityEntry.value
     fetchCity(cityToQuery)
+    if (toggleEl == true)
+    {
+    search.style.width = '95%';
+    search.style.borderRadius = '10px';
+    search.style.transform = 'translateY(1rem)'
+    history.style.transform = "scaleY(0%) translateY(21px)"
+    back.style.display = 'none';
+    toggleEl = false;} else console.log('hello')
 })
 
 let addHistory = city => {
@@ -94,13 +102,15 @@ let fetchCityFiveDay = city => {
     })
 }
 
-let displayWeather = object => {
+let displayWeather = (object, uvPass) => {
     addHistory(object.city);
-    addCard(object);
+    addCard(object, uvPass);
 }
 
-let fiveDay = (array, city) => {
+let fiveDay = (array, city, uvPass) => {
+    console.log(uvPass)
     let createFiveDayObject = (object) => {
+
         let currentCity  = document.getElementById(city.toLowerCase());
         // the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
         let oneDay = document.createElement('div');
@@ -109,8 +119,14 @@ let fiveDay = (array, city) => {
         date.textContent = object.date;
         oneDay.append(date);
         let temp = document.createElement('p');
-        temp.textContent = object.temp + ' degrees';
+        temp.textContent = object.temp + '°F';
         oneDay.append(temp);
+        let wind = document.createElement('p');
+        wind.textContent = object.wind + ' MPH';
+        oneDay.append(wind)
+        let humid = document.createElement('p');
+        humid.textContent = object.humidity + '%';
+        oneDay.append(humid)
         let icon = document.createElement('img');
         let source = 'http://openweathermap.org/img/wn/' + object.icon + '.png'
         icon.setAttribute('src', source);
@@ -119,7 +135,7 @@ let fiveDay = (array, city) => {
     
     }
 for (let i = 1; i < 6; i++){
-    const locals = moment.unix(array[i].dt).format('dddd');
+    const locals = moment.unix(array[i].dt).format('dd MM/DD ');
     console.log(locals)
     let returnObject =  {
         city: city,
@@ -135,7 +151,7 @@ for (let i = 1; i < 6; i++){
 }
 
 
-let addCard = (object) => {
+let addCard = (object, uvPass) => {
     
     let card = document.createElement('div')
     card.setAttribute('class', 'card')
@@ -143,11 +159,15 @@ let addCard = (object) => {
     let title = document.createElement('h3')
     title.textContent = object.city;
     card.append(title);
+    let date = document.createElement('p');
+    date.textContent = moment().format('dddd MM/DD')
+    card.append(date)
     let icon = document.createElement('img')
     let source = 'http://openweathermap.org/img/wn/' + object.icon + '@2x.png'
     icon.setAttribute('src', source)
     card.append(icon)
     let info = document.createElement('div');
+    info.setAttribute('class', 'info')
     let temp = document.createElement('p');
     temp.textContent = object.temp;
     info.appendChild(temp);
@@ -159,6 +179,8 @@ let addCard = (object) => {
     info.appendChild(humid);
     let UV = document.createElement('p');
     UV.textContent = object.uv;
+    let uvColorAdd = uvColor(uvPass);
+    UV.classList.add(uvColorAdd);
     info.appendChild(UV);
     // info.textContent = object.summary.toUpperCase() + ' ' + object.temp + '°F ' + object.wind + ' ' + object.humidity; 
     card.append(info)
@@ -176,7 +198,7 @@ let getUV = (obj, city) => {
     fetch(URL)
     .then(response => response.json())
     .then(data => {
-        console.log(data.current.uvi)
+        let uvPass = data.current.uvi
         console.log(data)
         let returnObject =  {
             city: city,
@@ -187,11 +209,23 @@ let getUV = (obj, city) => {
             humidity: 'Humidity: ' + data.current.humidity + '%',
             uv: 'UV Index: ' + data.current.uvi
         } 
-        displayWeather(returnObject)
+        displayWeather(returnObject, uvPass)
         let fiveDayArr = data.daily
         console.log(fiveDayArr)
-        fiveDay(fiveDayArr, city);
+        fiveDay(fiveDayArr, city, uvPass);
     })
     // .then(console.log('hello'))
     // .then(fetchCityFiveDay(city))
+}
+
+
+let uvColor = (index) => {
+    console.log(index);
+    if (index < 3){
+        return 'green'
+    } else if (index < 6){
+        return 'yellow'
+    } else if (index < 8){
+        return 'orange'
+    } else return 'red'
 }

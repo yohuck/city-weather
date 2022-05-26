@@ -122,10 +122,30 @@ li{
     padding-bottom: 1rem;
 }
 
+
 .card h3{
     margin-top: 1rem;
 }
 
+.card p{
+    margin: .3rem;
+    padding: .4rem;
+    border-radius: 10px;
+}
+
+
+.red{
+    border: 1px solid red;
+}
+.orange{
+    border: 1px solid orange;
+}
+.yellow{
+    border: 1px solid yellow;
+}
+.green{
+    border: 1px solid green;
+}
 
 
 
@@ -140,25 +160,28 @@ i{
 img{
 }
 
-/* .fiveDay{
-    margin-top: 5rem;
+.info{
+    width: 95%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    /* border: 1px solid red; */
 }
- */
 
 
 .oneDay{
+    padding: 1rem;
     width: 95%;
     color: var(--altWhite);
     background-color: var(--accent);
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     margin: .3rem auto;
     max-width: 800px;
     border-radius: 10px;
+    font-size: 0.8rem;
 }
 
 p + .oneDay{
