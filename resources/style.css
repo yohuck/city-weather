@@ -59,6 +59,7 @@ ul{
     list-style: none;
     flex-direction: column;
     margin: 0 auto;
+    color: var(--altWhite);
     
 }
 

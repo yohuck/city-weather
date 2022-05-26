@@ -42,7 +42,6 @@ submit.addEventListener('click', function(event){
     event.preventDefault()
     let cityToQuery = cityEntry.value
     fetchCity(cityToQuery)
-    fetchCityFiveDay(cityToQuery)
 })
 
 let addHistory = city => {
@@ -65,18 +64,20 @@ let fetchCity = city => {
     fetch(apiURL)
     .then(response => response.json())
     .then(data => {
-        // console.log(data)
-        let returnObject =  {
-            city: city,
-            summary: data.weather[0].description,
-            icon: data.weather[0].icon,
-            temp: data.main.temp,
-            wind: data.wind.speed,
-            humidity: data.main.humidity
-        } 
-        displayWeather(returnObject)
+        getUV(data.coord, city);
+        // let returnObject =  {
+        //     city: city,
+        //     summary: data.weather[0].description,
+        //     icon: data.weather[0].icon,
+        //     temp: 'Temp: ' + data.main.temp + '°F',
+        //     wind: 'Wind speed: ' + data.wind.speed + 'MPH',
+        //     humidity: 'Humidity: ' + data.main.humidity + '%',
+        //     uv: 'UV Index: '
+        // } 
+        // displayWeather(returnObject)
     })
 }
+
 let fetchCityFiveDay = city => {
     let key = 'f8541dfaff9d2bd38cb28900beab850f'
     let apiURL = "https://api.openweathermap.org/data/2.5/forecast?q="
@@ -100,15 +101,15 @@ let displayWeather = object => {
 
 let fiveDay = (array, city) => {
     let createFiveDayObject = (object) => {
-        let currentCity  = document.getElementById(city);
+        let currentCity  = document.getElementById(city.toLowerCase());
         // the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
         let oneDay = document.createElement('div');
         oneDay.classList.add('oneDay');
         let date = document.createElement('p');
-        date.textContent = moment(object.date).format('dddd');
+        date.textContent = object.date;
         oneDay.append(date);
         let temp = document.createElement('p');
-        temp.textContent = object.temp;
+        temp.textContent = object.temp + ' degrees';
         oneDay.append(temp);
         let icon = document.createElement('img');
         let source = 'http://openweathermap.org/img/wn/' + object.icon + '.png'
@@ -117,29 +118,28 @@ let fiveDay = (array, city) => {
         currentCity.append(oneDay);
     
     }
-for (let i = 4; i < 40; i+=8){
-    // let fiveDayContainer = document.createElement('div');
-    // fiveDayContainer.classList.add('fiveDay');
+for (let i = 1; i < 6; i++){
+    const locals = moment.unix(array[i].dt).format('dddd');
+    console.log(locals)
     let returnObject =  {
         city: city,
-        date: array[i].dt_txt,
+        date: locals,
         summary: array[i].weather[0].description,
         icon: array[i].weather[0].icon,
-        temp: array[i].main.temp + ' °F',
-        wind: array[i].wind.speed,
-        humidity: array[i].main.humidity
+        temp: array[i].temp.day,
+        wind: array[i].wind_speed,
+        humidity: array[i].humidity
     }; createFiveDayObject(returnObject);
-    console.log(returnObject)
+    // console.log(returnObject)
 }
 }
-
 
 
 let addCard = (object) => {
     
     let card = document.createElement('div')
     card.setAttribute('class', 'card')
-    card.setAttribute('id',object.city)
+    card.setAttribute('id',object.city.toLowerCase())
     let title = document.createElement('h3')
     title.textContent = object.city;
     card.append(title);
@@ -147,10 +147,51 @@ let addCard = (object) => {
     let source = 'http://openweathermap.org/img/wn/' + object.icon + '@2x.png'
     icon.setAttribute('src', source)
     card.append(icon)
-    let info = document.createElement('p');
-    info.textContent = object.summary.toUpperCase() + ' ' + object.temp + '°F ' + object.wind + ' ' + object.humidity; 
+    let info = document.createElement('div');
+    let temp = document.createElement('p');
+    temp.textContent = object.temp;
+    info.appendChild(temp);
+    let wind = document.createElement('p');
+    wind.textContent = object.wind;
+    info.appendChild(wind)
+    let humid = document.createElement('p');
+    humid.textContent = object.humidity;
+    info.appendChild(humid);
+    let UV = document.createElement('p');
+    UV.textContent = object.uv;
+    info.appendChild(UV);
+    // info.textContent = object.summary.toUpperCase() + ' ' + object.temp + '°F ' + object.wind + ' ' + object.humidity; 
     card.append(info)
     current.append(card)
 }
 
 
+
+
+// {lon: -104.9847, lat: 39.7392}
+
+let getUV = (obj, city) => {
+    let key = 'f8541dfaff9d2bd38cb28900beab850f'
+    let URL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + obj.lat + '&lon=' + obj.lon + '&exclude=hourly,minutely&units=imperial&appid=' + key;
+    fetch(URL)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.current.uvi)
+        console.log(data)
+        let returnObject =  {
+            city: city,
+            summary: data.current.weather[0].description,
+            icon: data.current.weather[0].icon,
+            temp: 'Temp: ' + data.current.temp + '°F',
+            wind: 'Wind speed: ' + data.current.wind_speed + 'MPH',
+            humidity: 'Humidity: ' + data.current.humidity + '%',
+            uv: 'UV Index: ' + data.current.uvi
+        } 
+        displayWeather(returnObject)
+        let fiveDayArr = data.daily
+        console.log(fiveDayArr)
+        fiveDay(fiveDayArr, city);
+    })
+    // .then(console.log('hello'))
+    // .then(fetchCityFiveDay(city))
+}
