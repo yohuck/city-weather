@@ -3,10 +3,11 @@ let submit = document.getElementById('submit');
 let historyList = document.getElementById('history');
 let current = document.getElementById('current');
 let history = document.getElementById('historyOption')
-let historyHistory = [];
 let search = document.getElementById('search');
 let back = document.getElementById('backIcon');
 let toggleEl = false;
+let historyHistory = []
+let isThereCard;
 
 let icons = {
     cloudy: "fa-solid fa-cloud",
@@ -53,12 +54,29 @@ submit.addEventListener('click', function(event){
 })
 
 let addHistory = city => {
+    let checkHistory = document.querySelectorAll("Denver");
+    console.log(checkHistory)
     
-    if (historyHistory.includes(city)){
+    if ( historyHistory.includes(city)){
         return 'Already there'
     } else {
+        historyHistory.push(city)
         let searchHistory = document.createElement('li');
-        searchHistory.textContent = city;
+        let searchAnchor = document.createElement('a');
+        searchAnchor.addEventListener('click', function(){
+            let cityToQuery = city
+            fetchCity(cityToQuery)
+    if (toggleEl == true)
+    {
+    search.style.width = '95%';
+    search.style.borderRadius = '10px';
+    search.style.transform = 'translateY(1rem)'
+    history.style.transform = "scaleY(0%) translateY(21px)"
+    back.style.display = 'none';
+    toggleEl = false;} else console.log('hello')
+        } )
+        searchAnchor.innerHTML = city;
+        searchHistory.appendChild(searchAnchor)
         history.appendChild(searchHistory);
     }
 }
@@ -97,18 +115,17 @@ let fetchCityFiveDay = city => {
     .then(response => response.json())
     .then(data => {
         let fiveDayArr = data.list;
-        console.log(fiveDayArr);
         fiveDay(fiveDayArr, city);
     })
 }
 
 let displayWeather = (object, uvPass) => {
     addHistory(object.city);
+    storageCallback(object.city, object.city)
     addCard(object, uvPass);
 }
 
-let fiveDay = (array, city, uvPass) => {
-    console.log(uvPass)
+let fiveDay = (array, city) => {
     let createFiveDayObject = (object) => {
 
         let currentCity  = document.getElementById(city.toLowerCase());
@@ -119,13 +136,13 @@ let fiveDay = (array, city, uvPass) => {
         date.textContent = object.date;
         oneDay.append(date);
         let temp = document.createElement('p');
-        temp.textContent = object.temp + '°F';
+        temp.textContent = Math.floor(object.temp) + '°F';
         oneDay.append(temp);
         let wind = document.createElement('p');
-        wind.textContent = object.wind + ' MPH';
+        wind.textContent = Math.floor(object.wind) + ' mph';
         oneDay.append(wind)
         let humid = document.createElement('p');
-        humid.textContent = 'Humidity: ' + object.humidity + '%';
+        humid.textContent = object.humidity + '% humidity';
         oneDay.append(humid)
         let icon = document.createElement('img');
         let source = 'http://openweathermap.org/img/wn/' + object.icon + '.png'
@@ -135,8 +152,7 @@ let fiveDay = (array, city, uvPass) => {
     
     }
 for (let i = 1; i < 6; i++){
-    const locals = moment.unix(array[i].dt).format('dddd MM/DD ');
-    console.log(locals)
+    const locals = moment.unix(array[i].dt).format('dddd');
     let returnObject =  {
         city: city,
         date: locals,
@@ -146,13 +162,18 @@ for (let i = 1; i < 6; i++){
         wind: array[i].wind_speed,
         humidity: array[i].humidity
     }; createFiveDayObject(returnObject);
-    // console.log(returnObject)
 }
 }
 
 
 let addCard = (object, uvPass) => {
+    if (isThereCard === true){
+        let removeCard = document.querySelector(".card");
+        removeCard.remove();
+        isThereCard = false;
+    }
     
+    isThereCard = true;
     let card = document.createElement('div')
     card.setAttribute('class', 'card')
     card.setAttribute('id',object.city.toLowerCase())
@@ -199,7 +220,8 @@ let getUV = (obj, city) => {
     .then(response => response.json())
     .then(data => {
         let uvPass = data.current.uvi
-        console.log(data)
+        console.log(data.current)
+        console.log(uvPass)
         let returnObject =  {
             city: city,
             summary: data.current.weather[0].description,
@@ -211,16 +233,12 @@ let getUV = (obj, city) => {
         } 
         displayWeather(returnObject, uvPass)
         let fiveDayArr = data.daily
-        console.log(fiveDayArr)
         fiveDay(fiveDayArr, city, uvPass);
     })
-    // .then(console.log('hello'))
-    // .then(fetchCityFiveDay(city))
 }
 
 
 let uvColor = (index) => {
-    console.log(index);
     if (index < 3){
         return 'green'
     } else if (index < 6){
@@ -228,4 +246,21 @@ let uvColor = (index) => {
     } else if (index < 8){
         return 'orange'
     } else return 'red'
+}
+
+let storageCallback = (city) => {
+    let storedHistory = localStorage.getItem('storedLocalItems');
+    storedHistory = storedHistory? JSON.parse(storedHistory) : [];
+    storedHistory.push(city)
+    localStorage.setItem('storedLocalItems',JSON.stringify(storedHistory));
+}
+
+
+const storedHistory = JSON.parse(localStorage.getItem('storedLocalItems'));
+if (storedHistory){
+    for (let i = 0; i < storedHistory.length; i++){
+        addHistory(storedHistory[i])
+        historyHistory.push(storedHistory[i])
+    }
+
 }

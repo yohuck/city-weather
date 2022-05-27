@@ -87,6 +87,10 @@ li{
     font-weight: bold;
 }
 
+li a{
+    text-decoration: underline;
+}
+
 #city-search{
     /* transform: translateY(1rem); */
     z-index: 70;
@@ -177,10 +181,10 @@ i{
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    margin: .3rem auto;
+    margin: .4rem auto;
     max-width: 800px;
     border-radius: 10px;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
 }
 
 .oneDay p{
