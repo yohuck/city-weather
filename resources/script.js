@@ -251,8 +251,10 @@ let uvColor = (index) => {
 let storageCallback = (city) => {
     let storedHistory = localStorage.getItem('storedLocalItems');
     storedHistory = storedHistory? JSON.parse(storedHistory) : [];
-    storedHistory.push(city)
-    localStorage.setItem('storedLocalItems',JSON.stringify(storedHistory));
+    if (storedHistory){
+        storedHistory.push(city)
+        localStorage.setItem('storedLocalItems',JSON.stringify(storedHistory));
+    }
 }
 
 
