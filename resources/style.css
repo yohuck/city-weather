@@ -21,14 +21,12 @@ body {
 
 header {
     position: relative;
-    /* padding-top: 1rem; */
 }
 
 
 #animation{
     opacity: 0.8;
     transition: 0.3s;
-    /* background-color: white; */
     color: var(--altWhite);
 }
 
@@ -60,8 +58,6 @@ ul{
     z-index: 1;
     transform:  scaleY(0%) translateY(21px);
     background-color: var(--altWhite);
-    /* border: 1px solid black; */
-    /* max-width: 800px; */
     width: 100%;
     height: 100vh;
     list-style: none;
@@ -100,7 +96,6 @@ li a{
 }
 
 #city-search{
-    /* transform: translateY(1rem); */
     z-index: 70;
     width: 100%;
     position: relative;
@@ -111,7 +106,6 @@ li a{
 #search{
     height: 3rem;
     width: 95%;
-    /* border: 2px solid black; */
     transition: .3s ease-in-out;
     transform: translateY(1rem);
     box-shadow: 3px 3px 2px 1px var(--dark);
@@ -124,10 +118,8 @@ li a{
     margin: 2rem auto 1rem auto;
     max-width: 800px;
     width: 95%;
-    /* height: 20vh; */
     display: flex;
     flex-direction: column;
-    /* flex-direction: column; */
     justify-content: space-around;
     align-items: center;
     border-radius: 9px;
@@ -165,9 +157,6 @@ i{
     cursor: pointer;
     margin: .5rem;
 }
-/* #search{
-    width: 100%;
-} */
 
 
 .info{
@@ -176,12 +165,10 @@ i{
     justify-content: space-evenly;
     flex-wrap: wrap;
     margin-bottom: 1rem;
-    /* border: 1px solid red; */
 }
 
 
 .oneDay{
-    /* padding: 1rem; */
     width: 95%;
     color: var(--altWhite);
     background-color: var(--accent);
@@ -201,6 +188,5 @@ i{
 }
 
 p + .oneDay{
-    /* background-color: green; */
     margin-top: 1rem;
 }
