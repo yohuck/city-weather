@@ -1,4 +1,4 @@
-# DU Bootcamp Challenge #6 - Weather Dashboard
+# City Weather Dashboard
 
 Link to live project: https://yohuck.github.io/city-weather/
 
